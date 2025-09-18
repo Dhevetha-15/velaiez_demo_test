@@ -283,3 +283,86 @@
     margin-right: 6px;
   }
 }
+@media screen and (max-width: 768px) {
+  .contact-container {
+    flex-direction: column;
+    padding: 1rem;
+    margin-top: 100px;
+    margin-bottom: 30px;
+    gap: 2rem;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .contact-info-section,
+  .contact-info {
+    flex: 1 1 100%;
+    margin-top: 0;
+  }
+
+  .map-container {
+    height: 200px;
+  }
+
+  .contact-info-section h3,
+  .contact-info h2 {
+    font-size: 1.25rem;
+    text-align: center;
+  }
+
+  .contact-info-section p {
+    font-size: 0.95rem;
+    text-align: center;
+  }
+
+  .form-box {
+    padding: 1rem;
+  }
+
+  .form-box input,
+  .form-box textarea {
+    width: 100%;            /* ✅ responsive inputs */
+    font-size: 1rem;        /* ✅ scale down */
+    padding: 0.6rem 0.8rem; /* ✅ smaller padding */
+    box-sizing: border-box;
+  }
+
+  .form-box button {
+    font-size: 1rem;
+    padding: 0.7rem;
+  }
+
+  .popup-content {
+    width: 90%;
+    padding: 1.5rem;
+  }
+
+  .popup-content h2 {
+    font-size: 1.2rem;
+  }
+
+  .popup-content p {
+    font-size: 0.95rem;
+  }
+
+  .popup-close-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
+  }
+
+  .whatsapp-chat-button {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.85rem;
+    bottom: 15px;
+    right: 15px;
+  }
+
+  .whatsapp-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
+  }
+}

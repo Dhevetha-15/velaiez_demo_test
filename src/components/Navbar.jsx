@@ -17,7 +17,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showTopBar, setShowTopBar] = useState(false);
   const [consultancyOpen, setConsultancyOpen] = useState(false);
-  const [industriesOpen, setIndustriesOpen] = useState(false);
+  const [_industriesOpen, setIndustriesOpen] = useState(false);
   const [consultancyClicks, setConsultancyClicks] = useState(0);
 
   const navigate = useNavigate();
@@ -126,9 +126,9 @@ const Navbar = () => {
             </>
           )}
 
-          <li>
+        {/*  <li>
             <Link to="/login" onClick={closeAllMenus}>ADMIN</Link>
-          </li>
+          </li>*/}
         </ul>
       </nav>
     </div>

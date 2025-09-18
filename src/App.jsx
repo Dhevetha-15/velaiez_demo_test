@@ -22,8 +22,7 @@ import "./App.css";
 
 // ProtectedRoute component: checks if admin is logged in
 function ProtectedRoute({ children }) {
-  // Check login status from localStorage or any auth logic you use
-  const isLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
+  const isLoggedIn = sessionStorage.getItem('adminLoggedIn') === 'true';
 
   if (!isLoggedIn) {
     // Redirect to /Login if not logged in

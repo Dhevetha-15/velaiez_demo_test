@@ -13,7 +13,7 @@ useEffect(() => {
   window.scrollTo(0, 0);
 }, []);
 
-  const industries = [
+  const _industries = [
     { image: healthcare, title: 'Healthcare and Medical' },
     { image: construction, title: 'Engineering and Construction' },
     { image: marketing, title: 'Marketing and Advertising' },
@@ -63,29 +63,29 @@ useEffect(() => {
           </p>
         </div>
         <div className="buttons-grid">
-          <button className="gradient-btn"><Link to="/placement">
-                <h4>Permanent Placement</h4>
-              </Link>
-              </button>
-          <button className="gradient-btn"><Link to="/staffing">
-                <h4>Temporary Staffing</h4>
-              </Link>
-              </button>
-          <button className="gradient-btn"> <Link to="/search">
-                <h4>Executive Search</h4>
-              </Link>
-              </button>
-          <button className="gradient-btn"><Link to="/legal">
-                <h4>Legal Consultancy</h4>
-              </Link>
-              </button>
-          <button className="gradient-btn"><Link to="/accounting">
-                <h4>Accounting & Tax Consultation</h4>
-              </Link>
-              </button>
-          <button className="gradient-btn"><Link to="/financial">
-                <h4>Financial Consultant</h4>
-              </Link></button>
+          <Link to="/placement">
+  <button className="gradient-btn">Permanent Placement</button>
+</Link>
+
+         <Link to="/staffing">
+      <button className="gradient-btn">Temporary Staffing</button>
+    </Link>
+
+    <Link to="/search">
+      <button className="gradient-btn">Executive Search</button>
+    </Link>
+
+    <Link to="/legal">
+      <button className="gradient-btn">Legal Consultancy</button>
+    </Link>
+
+    <Link to="/accounting">
+      <button className="gradient-btn">Accounting & Tax Consultation</button>
+    </Link>
+
+    <Link to="/financial">
+      <button className="gradient-btn">Financial Consultant</button>
+    </Link>
         </div>
       </section>
     </>

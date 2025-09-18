@@ -1,3 +1,4 @@
+// server.js
 import express from 'express';
 import cors from 'cors';
 import nodemailer from 'nodemailer';
@@ -6,36 +7,46 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import xml2js from 'xml2js';
+import dotenv from 'dotenv';
+import process from 'process';
+
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+const PORT = process.env.PORT || 5000;
+
 app.use(cors());
 app.use(express.json());
 
 const upload = multer({ dest: 'uploads/' });
 const xmlFilePath = path.join(__dirname, 'Admin.xml');
 
-// Serve the frontend from Vite build output
+// Serve frontend files
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// Helper to convert jobs array to XML
+// Nodemailer transporter
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_PASS,
+  },
+});
+
+// Convert job array to XML
 const convertToXML = (jobs) => {
   const builder = new xml2js.Builder();
   return builder.buildObject({ jobs: { job: jobs } });
 };
 
-// Health check route
-app.get('/api', (req, res) => {
-  res.send('Backend API is running!');
-});
-
 // GET all jobs
 app.get('/api/jobs', (req, res) => {
   if (!fs.existsSync(xmlFilePath)) return res.json([]);
   fs.readFile(xmlFilePath, (err, data) => {
-    if (err) return res.status(500).send('Error reading XML file');
+    if (err) return res.status(500).send('Error reading XML');
     xml2js.parseString(data, (err, result) => {
       if (err || !result || !result.jobs) return res.json([]);
       res.json(result.jobs.job || []);
@@ -43,7 +54,7 @@ app.get('/api/jobs', (req, res) => {
   });
 });
 
-// POST - Add job
+// POST new job
 app.post('/api/jobs', (req, res) => {
   const newJob = req.body;
   fs.readFile(xmlFilePath, (err, data) => {
@@ -86,10 +97,10 @@ app.post('/api/jobs', (req, res) => {
 app.delete('/api/jobs/:id', (req, res) => {
   const jobId = req.params.id;
   fs.readFile(xmlFilePath, (err, data) => {
-    if (err) return res.status(500).send('Error reading XML file');
+    if (err) return res.status(500).send('Error reading XML');
     xml2js.parseString(data, (err, result) => {
       if (err) return res.status(500).send('Error parsing XML');
-      let jobs = result?.jobs?.job || [];
+      const jobs = result?.jobs?.job || [];
       const updatedJobs = jobs.filter(job => job.id[0] !== jobId);
       const xml = convertToXML(updatedJobs);
       fs.writeFile(xmlFilePath, xml, (err) => {
@@ -100,28 +111,27 @@ app.delete('/api/jobs/:id', (req, res) => {
   });
 });
 
-// PUT - Update job
+// PUT update job
 app.put('/api/jobs/:id', (req, res) => {
   const jobId = req.params.id;
   const updatedJob = req.body;
   fs.readFile(xmlFilePath, (err, data) => {
-    if (err) return res.status(500).send('Error reading XML file');
+    if (err) return res.status(500).send('Error reading XML');
     xml2js.parseString(data, (err, result) => {
       if (err) return res.status(500).send('Error parsing XML');
-      let jobs = result?.jobs?.job || [];
-      const newJobs = jobs.map(job => {
-        if (job.id[0] === jobId) {
-          return {
-            id: [jobId],
-            title: [updatedJob.title],
-            skill: [updatedJob.skill],
-            qualification: [updatedJob.qualification],
-            description: [updatedJob.description],
-            status: [updatedJob.status],
-          };
-        }
-        return job;
-      });
+      const jobs = result?.jobs?.job || [];
+      const newJobs = jobs.map(job =>
+        job.id[0] === jobId
+          ? {
+              id: [jobId],
+              title: [updatedJob.title],
+              skill: [updatedJob.skill],
+              qualification: [updatedJob.qualification],
+              description: [updatedJob.description],
+              status: [updatedJob.status],
+            }
+          : job
+      );
       const xml = convertToXML(newJobs);
       fs.writeFile(xmlFilePath, xml, (err) => {
         if (err) return res.status(500).send('Error writing XML');
@@ -131,24 +141,15 @@ app.put('/api/jobs/:id', (req, res) => {
   });
 });
 
-// Job Application with resume
+// Job Application via Email
 app.post('/send-application', upload.single('resume'), async (req, res) => {
   const { firstName, lastName, mobile, email, message, jobTitle } = req.body;
   const resume = req.file;
-
   if (!resume) return res.status(400).json({ message: 'Resume not uploaded' });
-
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'shabrinbegum15102001@gmail.com',
-      pass: 'mfzf vjev oefa pweo',
-    },
-  });
 
   const mailOptions = {
     from: email,
-    to: 'shabrinbegum15102001@gmail.com',
+    to: process.env.GMAIL_USER,
     subject: `Job Application: ${jobTitle}`,
     text: `
 Name: ${firstName} ${lastName}
@@ -161,7 +162,7 @@ Message: ${message}
 
   try {
     await transporter.sendMail(mailOptions);
-    fs.unlinkSync(resume.path); // Clean up file
+    fs.unlinkSync(resume.path); // Delete uploaded file
     res.status(200).json({ message: 'Application sent with resume.' });
   } catch (error) {
     console.error('Email send error:', error);
@@ -169,21 +170,13 @@ Message: ${message}
   }
 });
 
-// Contact form
+// Contact Form Email
 app.post('/send-contact', async (req, res) => {
   const { name, email, phone, enquiry } = req.body;
 
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'shabrinbegum15102001@gmail.com',
-      pass: 'mfzf vjev oefa pweo',
-    },
-  });
-
   const mailOptions = {
     from: email,
-    to: 'shabrinbegum15102001@gmail.com',
+    to: process.env.GMAIL_USER,
     subject: 'New Contact Enquiry',
     text: `
 Name: ${name}
@@ -202,11 +195,9 @@ Message: ${enquiry}
   }
 });
 
-// Catch-all route to serve React app for non-API paths
-app.get('*', (req, res) => {
+// Catch-all to serve React frontend
+app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
-// Start server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));

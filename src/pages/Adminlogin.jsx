@@ -14,22 +14,19 @@ const AdminLogin = () => {
     setError(''); // Clear error on input change
   };
 
-  const handleLogin = () => {
-    const { username, password } = adminUser;
+ const handleLogin = () => {
+  const { username, password } = adminUser;
 
-    if (username === 'Velaiez' && password === 'Velaiez@123') {
-      // Save login flag to localStorage
-      localStorage.setItem('adminLoggedIn', 'true');
+  if (username === 'Velaiez' && password === 'Velaiez@123') {
+    // Save login flag to sessionStorage
+    sessionStorage.setItem('adminLoggedIn', 'true');
 
-      // Clear any previous error
-      setError('');
-
-      // Redirect to /admin
-      navigate('/admin');
-    } else {
-      setError('Invalid username or password');
-    }
-  };
+    setError('');
+    navigate('/admin'); // Redirect
+  } else {
+    setError('Invalid username or password');
+  }
+};
 
   return (
     <div className="admin-login-container">
