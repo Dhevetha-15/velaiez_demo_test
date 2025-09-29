@@ -1,7 +1,7 @@
 /* General Container */
 .aboutus-container {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #222;
+  color: #ffffff;
   line-height: 1.6;
   margin: 0;
   padding: 0;
@@ -72,7 +72,7 @@
   bottom: 15px; /* better than top:86% */
   left: 50%;
   transform: translateX(-50%);
-  background-color: orangered;
+  background-color: rgb(0, 89, 255);
   color: white;
   padding: 8px 15px;
   border-radius: 10px;
@@ -102,7 +102,7 @@
 .aboutus-text-block h2 {
   font-size: clamp(1.4rem, 3vw, 2rem);
   margin-bottom: 20px;
-  color: #f62804;
+  color: #04a9f6;
 }
 
 .aboutus-text-block p {
@@ -133,12 +133,12 @@
   margin-bottom: 15px;
   display: flex;
   align-items: start;
-  color: #333;
+  color: #ffffff;
   line-height: 1.5;
 }
 
 .check-icon {
-  color: orangered;
+  color: rgb(0, 112, 239);
   margin-right: 10px;
   font-size: 1.2rem;
   margin-top: 3px;
@@ -185,7 +185,7 @@
 }
 
 .specializations-text p strong {
-  color: orangered;
+  color: rgb(0, 200, 255);
 }
 
 /* Responsive Breakpoints */
@@ -227,4 +227,79 @@
     font-size: 0.8rem;
     padding: 6px 10px;
   }
+}
+/* ✨ Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes zoomIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 🎯 Apply Animations */
+
+/* Hero Section */
+.aboutus-overlay {
+  animation: fadeInUp 1.2s ease forwards;
+}
+
+/* Image Cards */
+.aboutus-image-card {
+  opacity: 0;
+  animation: zoomIn 1s ease forwards;
+}
+.aboutus-image-card:nth-child(1) { animation-delay: 0.2s; }
+.aboutus-image-card:nth-child(2) { animation-delay: 0.4s; }
+
+/* Captions over Images */
+.image-caption {
+  opacity: 0;
+  animation: slideUp 1s ease forwards;
+  animation-delay: 0.6s;
+}
+
+/* Text Blocks */
+.aboutus-text-block {
+  opacity: 0;
+  animation: fadeInRight 1s ease forwards;
+  animation-delay: 0.5s;
+}
+
+/* Approach Section */
+.approach-left li {
+  opacity: 0;
+  animation: fadeInUp 0.8s ease forwards;
+}
+.approach-left li:nth-child(1) { animation-delay: 0.2s; }
+.approach-left li:nth-child(2) { animation-delay: 0.4s; }
+.approach-left li:nth-child(3) { animation-delay: 0.6s; }
+.approach-left li:nth-child(4) { animation-delay: 0.8s; }
+
+/* Specializations */
+.specializations-text {
+  opacity: 0;
+  animation: fadeInLeft 1s ease forwards;
+}
+.aboutus-specializations img {
+  opacity: 0;
+  animation: fadeInRight 1s ease forwards;
+  animation-delay: 0.3s;
 }

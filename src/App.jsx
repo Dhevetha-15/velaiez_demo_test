@@ -12,7 +12,7 @@ import Accounting from "./consultancy/Accounting";
 import Placement from "./consultancy/Placement";
 import Staffing from "./consultancy/Staffing";
 import Search from "./consultancy/Search";
-import Legal from "./consultancy/Legal";
+import RetainerServices from './consultancy/RetainerServices';
 import Financial from './consultancy/Financial';
 import Apply from './career/Apply';
 import Navbar from "./components/Navbar";
@@ -65,7 +65,8 @@ function App() {
             <Route path="/placement" element={<Placement />} />
             <Route path="/staffing" element={<Staffing />} />
             <Route path="/search" element={<Search />} />
-            <Route path="/legal" element={<Legal />} />
+    <Route path="/retainer-services" element={<RetainerServices />} />
+
             <Route path="/financial" element={<Financial />} />
             <Route path="/Login" element={<Adminlogin />} />
             <Route path="/career" element={<Career jobs={jobs} />} />

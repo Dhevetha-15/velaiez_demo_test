@@ -10,6 +10,11 @@ import xml2js from 'xml2js';
 import dotenv from 'dotenv';
 import process from 'process';
 
+
+import pdfParse from "pdf-parse";
+import mammoth from "mammoth";
+
+
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -140,35 +145,110 @@ app.put('/api/jobs/:id', (req, res) => {
     });
   });
 });
+// ✅ Function to extract text
+const extractTextFromFile = async (filePath, mimetype) => {
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`File does not exist: ${filePath}`);
+  }
+  let extracted = "";
+  if (mimetype === "application/pdf") {
+    const data = await pdfParse(fs.readFileSync(filePath));
+    extracted = data.text || "";
+  } else if (
+    mimetype === "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+  ) {
+    const result = await mammoth.extractRawText({ path: filePath });
+    extracted = result.value || "";
+  }
 
-// Job Application via Email
-app.post('/send-application', upload.single('resume'), async (req, res) => {
+  console.log("🔍 Extracted Resume Text Preview:", extracted.slice(0, 200));
+  return extracted;
+};
+
+
+// ✅ Check resume against job requirements
+const checkResumeMatch = (resumeText, job) => {
+  if (!resumeText || resumeText.trim().length === 0) return false;
+
+  const text = resumeText.toLowerCase();
+
+  const skills = (job.skill || "")
+    .split(",")
+    .map((s) => s.trim().toLowerCase())
+    .filter(Boolean);
+
+  const qualifications = (job.qualification || "")
+    .split(",")
+    .map((q) => q.trim().toLowerCase())
+    .filter(Boolean);
+
+  // Require at least one keyword match
+  const skillMatch = skills.some((s) => text.includes(s));
+  const qualMatch = qualifications.some((q) => text.includes(q));
+
+  return skillMatch || qualMatch;
+};
+
+
+// ✅ Job Application via Email
+app.post("/send-application", upload.single("resume"), async (req, res) => {
   const { firstName, lastName, mobile, email, message, jobTitle } = req.body;
   const resume = req.file;
-  if (!resume) return res.status(400).json({ message: 'Resume not uploaded' });
+  if (!resume) return res.status(400).json({ message: "Resume not uploaded" });
 
-  const mailOptions = {
-    from: email,
-    to: process.env.GMAIL_USER,
-    subject: `Job Application: ${jobTitle}`,
-    text: `
+  try {
+    // Find job details from XML
+    const data = fs.readFileSync(xmlFilePath);
+    const result = await xml2js.parseStringPromise(data);
+    const jobs = result?.jobs?.job || [];
+    const selectedJob = jobs.find((j) => j.title[0] === jobTitle);
+
+    if (!selectedJob) {
+      fs.unlinkSync(resume.path);
+      return res.status(400).json({ message: "Job not found" });
+    }
+
+    // Extract text from resume
+    const resumeText = await extractTextFromFile(resume.path, resume.mimetype);
+
+    // Check if resume matches
+    const matched = checkResumeMatch(resumeText, {
+      skill: selectedJob.skill[0],
+      qualification: selectedJob.qualification[0],
+    });
+
+   if (!matched) {
+  fs.unlinkSync(resume.path); // delete temp file
+  return res
+    .status(400)   // make sure it's 400, not 200
+    .json({ message: "❌ Application rejected (no matching skill/qualification)." });
+}
+
+    // Send email if matched
+    const mailOptions = {
+      from: email,
+      to: process.env.GMAIL_USER,
+      subject: `Job Application: ${jobTitle}`,
+      text: `
 Name: ${firstName} ${lastName}
 Email: ${email}
 Mobile: ${mobile}
 Message: ${message}
-    `,
-    attachments: [{ filename: resume.originalname, path: resume.path }],
-  };
+      `,
+      attachments: [{ filename: resume.originalname, path: resume.path }],
+    };
 
-  try {
     await transporter.sendMail(mailOptions);
-    fs.unlinkSync(resume.path); // Delete uploaded file
-    res.status(200).json({ message: 'Application sent with resume.' });
+    fs.unlinkSync(resume.path);
+
+    res.status(200).json({ message: "✅ Application sent successfully." });
   } catch (error) {
-    console.error('Email send error:', error);
-    res.status(500).json({ message: 'Failed to send application' });
+    console.error("Application error:", error);
+    if (resume && fs.existsSync(resume.path)) fs.unlinkSync(resume.path);
+    res.status(500).json({ message: "Failed to process application." });
   }
 });
+
 
 // Contact Form Email
 app.post('/send-contact', async (req, res) => {

@@ -34,9 +34,10 @@
   margin: 1rem 0 2rem;
 }
 
+/* 🔵 Blue Gradient Buttons */
 .contact-button {
-  background: linear-gradient(135deg, #ff6f61, #ff9472);
-  color: #111;
+  background: linear-gradient(135deg, #2196f3, #6ec6ff);
+  color: #fff;
   padding: 0.75rem 2rem;
   border-radius: 2rem;
   font-weight: 600;
@@ -46,25 +47,25 @@
 }
 .contact-button:hover {
   transform: scale(1.05);
-  background: linear-gradient(to right, #f8a857, #ffe0b2);
+  background: linear-gradient(to right, #64b5f6, #bbdefb);
 }
 
 /* 🏢 About Us */
 .about-us-container {
   display: flex;
-  flex-direction: column; /* stack image and text */
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 60px 20px;
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
-  text-align: center; /* center text */
+  text-align: center;
 }
 
 .about-us-text {
   flex: 1 1 auto;
-  text-align: center; /* center words */
+  text-align: center;
 }
 
 .about-us-image img {
@@ -76,11 +77,12 @@
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
 }
 
-
 .about-us-text h2 {
   font-size: clamp(1.5rem, 3vw, 2.2rem);
   font-weight: 700;
+  color: #1976d2;
 }
+
 .about-description {
   font-size: clamp(1rem, 2vw, 1.25rem);
   line-height: 1.6;
@@ -88,7 +90,7 @@
 }
 
 .learn-more-btn {
-  background: linear-gradient(135deg, #ff6f61, #ff9472);
+  background: linear-gradient(135deg, #2196f3, #6ec6ff);
   color: #fff;
   padding: 12px 30px;
   font-size: 1rem;
@@ -99,20 +101,20 @@
   transition: 0.3s;
 }
 .learn-more-btn:hover {
-  background: linear-gradient(to right, #f8a857, #ffe0b2);
+  background: linear-gradient(to right, #64b5f6, #bbdefb);
   transform: translateY(-2px);
 }
 
 /* ⭐ Why Choose Us */
 .why-choose-us-container {
   padding: 60px 20px;
-  background: #f9f9f9;
+  background: #f0f7ff;
   text-align: center;
 }
 .section-title {
   font-size: clamp(1.8rem, 3vw, 2.2rem);
   font-weight: 700;
-  color: #ff6f61;
+  color: #1976d2;
 }
 .description {
   font-size: clamp(1rem, 2vw, 1.1rem);
@@ -120,14 +122,15 @@
   max-width: 800px;
   margin: 1rem auto 2rem;
 }
+
 .buttons-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 20px;
- 
 }
+
 .gradient-btn {
-  background: linear-gradient(to right, #f84909, #f98055);
+  background: linear-gradient(to right, #1976d2, #42a5f5);
   color: #fff;
   border-radius: 12px;
   padding: 20px;
@@ -137,9 +140,8 @@
   transition: transform 0.3s ease;
 }
 .gradient-btn:hover {
-  background: linear-gradient(to right, #f8a857, #ffe0b2);
+  background: linear-gradient(to right, #64b5f6, #bbdefb);
   transform: translateY(-5px);
-  
 }
 
 /* 🏭 Industries */
@@ -149,7 +151,7 @@
 }
 .industries-container h6 {
   font-size: clamp(1.5rem, 3vw, 2.2rem);
-  color: #ff3700;
+  color: #0d47a1;
   font-weight: bold;
 }
 .industries-grid {
@@ -159,7 +161,7 @@
   margin-top: 30px;
 }
 .industry-card {
-  background: #f651054e;
+  background: #e3f2fd;
   border-radius: 10px;
   padding: 20px;
   text-align: center;
@@ -179,4 +181,48 @@
   font-size: 1.2rem;
   font-weight: 600;
   margin-top: 10px;
+  color: #1976d2;
 }
+
+/* ✨ Animations (unchanged) */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes zoomIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* 🏠 Animation Usage */
+.welcome-text { animation: fadeInUp 1s ease forwards; }
+.main-heading { animation: fadeInUp 1.3s ease forwards; }
+.contact-button { animation: zoomIn 1.6s ease forwards; }
+
+.about-us-text { animation: fadeInLeft 1s ease forwards; }
+.about-us-image img { animation: fadeInRight 1.2s ease forwards; }
+
+.section-title { animation: fadeInUp 1s ease forwards; }
+.description { animation: fadeInUp 1.2s ease forwards; }
+.buttons-grid .gradient-btn { opacity: 0; animation: zoomIn 0.8s ease forwards; }
+.buttons-grid .gradient-btn:nth-child(1) { animation-delay: 0.2s; }
+.buttons-grid .gradient-btn:nth-child(2) { animation-delay: 0.4s; }
+.buttons-grid .gradient-btn:nth-child(3) { animation-delay: 0.6s; }
+.buttons-grid .gradient-btn:nth-child(4) { animation-delay: 0.8s; }
+
+.industry-card { opacity: 0; animation: fadeInUp 0.9s ease forwards; }
+.industry-card:nth-child(1) { animation-delay: 0.2s; }
+.industry-card:nth-child(2) { animation-delay: 0.4s; }
+.industry-card:nth-child(3) { animation-delay: 0.6s; }
+.industry-card:nth-child(4) { animation-delay: 0.8s; }

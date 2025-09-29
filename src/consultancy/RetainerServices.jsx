@@ -1,9 +1,10 @@
 import React from 'react';
-import './Legal.css';
+import './RetainerServices.css';
 import legalImg from '../assets/legal.jpeg'; // Replace with your actual image path
 import legalBg from '../assets/legal-bg.jpg'; // Replace with background image path
 
-const Legal = () => {
+const RetainerServices = () => {
+
   return (
     <div className="legal-page">
       <div
@@ -11,16 +12,16 @@ const Legal = () => {
         style={{ backgroundImage: `url(${legalBg})` }}
       >
         <div className="legal-overlay">
-          <h1>Legal Consultancy</h1>
+          <h1>Retainer Services</h1>
         </div>
       </div>
 
       <div className="legal-content">
         <div className="text-section">
           <p className="service-label">OUR SERVICES</p>
-          <h2>Legal Support</h2>
+          <h2>Retainer Services</h2>
           <div className="legal-description">
-            <h3>We offer expert legal consulting in areas such as:</h3>
+            <h3>We offer expert retainer services in areas such as:</h3>
             <ul>
               <li><strong>Corporate Law:</strong> Legal structuring and documentation for businesses</li>
               <li><strong>Compliance:</strong> Statutory and regulatory compliance services</li>
@@ -38,4 +39,4 @@ const Legal = () => {
   );
 };
 
-export default Legal;
+export default RetainerServices;

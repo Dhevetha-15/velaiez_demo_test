@@ -114,7 +114,13 @@ const Navbar = () => {
                     <li><Link to="/placement" onClick={closeAllMenus}>Permanent Placement</Link></li>
                     <li><Link to="/staffing" onClick={closeAllMenus}>Temporary Staffing</Link></li>
                     <li><Link to="/search" onClick={closeAllMenus}>Executive Search</Link></li>
-                    <li><Link to="/legal" onClick={closeAllMenus}>Legal Consultancy</Link></li>
+                   <li>
+  <Link to="/retainer-services" onClick={closeAllMenus}>
+  Retainer Services
+</Link>
+
+</li>
+
                     <li><Link to="/accounting" onClick={closeAllMenus}>Accounting and Tax Consultation</Link></li>
                     <li><Link to="/financial" onClick={closeAllMenus}>Financial Consultant</Link></li>
                   </ul>

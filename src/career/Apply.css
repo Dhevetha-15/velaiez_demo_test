@@ -104,7 +104,7 @@ textarea {
 button {
   margin-top: 20px;
   padding: 12px;
-  background: linear-gradient(135deg, #f92d1b, #f76e45);
+  background:rgb(0, 132, 255);
   color: #f7f8fa;
   font-weight: bold;
   border: none;
@@ -115,7 +115,7 @@ button {
 }
 
 button:hover {
-  background: linear-gradient(to right, #f8a857, #ffe0b2);
+  background:rgb(80, 176, 245)
 }
 
 .success-modal {
@@ -212,7 +212,7 @@ button:hover {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: var(--text-color);
   transition: all 0.3s ease-in-out;
-
+   margin-bottom: 30px;
 }
 
 /* Heading */

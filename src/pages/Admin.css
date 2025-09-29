@@ -1,10 +1,10 @@
-/* Admin.css */
+/* Admin.css - Blue Theme */
 
 .admin-dashboard {
   max-width: 1400px;
   margin: 120px auto;
   padding: 20px;
-  background: #ffffff;
+  background: #e8f0fe; /* light blue background */
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -12,7 +12,7 @@
 
 .admin-dashboard h1 {
   text-align: center;
-  color: #2c3e50;
+  color: #0d47a1; /* dark blue */
   margin-bottom: 30px;
 }
 
@@ -25,7 +25,7 @@
 .job-form h2,
 .job-list h2 {
   margin-bottom: 15px;
-  color: #34495e;
+  color: #1565c0; /* medium blue */
 }
 
 .job-form input,
@@ -36,99 +36,107 @@
   width: 100%;
   padding: 10px;
   margin-bottom: 12px;
-  border: 1px solid #ccc;
+  border: 1px solid #90caf9; /* soft blue border */
   border-radius: 6px;
   font-size: 16px;
   box-sizing: border-box;
+  background-color: #f0f7ff; /* very light blue */
+  color: #0d47a1;
 }
-.job-form textarea{
+
+.job-form textarea {
   height: 300px;
 }
-.job-item textarea{
+.job-item textarea {
   height: 200px;
 }
-.job-item
-textarea {
+.job-item textarea {
   resize: vertical;
   min-height: 80px;
 }
 
-/* Separate Button Styles */
+/* Buttons */
 .job-form button,
 .job-item button {
   padding: 10px 16px;
   border: none;
   border-radius: 6px;
-  color: white;
   cursor: pointer;
   font-weight: bold;
   margin-right: 10px;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 /* Save */
 .button-save {
-  background-color: #007bff;
-
+  background-color: #1976d2;
+  color: #fff;
 }
 .button-save:hover {
-  background-color: #0056b3;
+  background-color: #0d47a1;
 }
 
 /* Cancel */
 .button-cancel {
-  background-color: #6c757d;
+  background-color: #90a4ae;
+  color: #fff;
 }
 .button-cancel:hover {
-  background-color: #5a6268;
+  background-color: #607d8b;
 }
 
 /* Edit */
 .button-edit {
-  background-color: #28a745;
-  color: #000;
+  background-color: #64b5f6;
+  color: #fff;
 }
 .button-edit:hover {
-  background-color: #218838;
+  background-color: #2196f3;
 }
 
 /* Delete */
 .button-delete {
-  background-color: #dc3545;
+  background-color: #42a5f5;
+  color: #fff;
 }
 .button-delete:hover {
-  background-color: #c82333;
+  background-color: #1e88e5;
 }
 
 .search-bar input {
   padding: 10px;
   font-size: 16px;
   border-radius: 6px;
-  border: 1px solid #ccc;
+  border: 1px solid #64b5f6;
   width: 100%;
+  background-color: #e3f2fd;
+  color: #0d47a1;
 }
 
 .job-item {
   padding: 20px;
-  border: 1px solid #ddd;
+  border: 1px solid #90caf9;
   border-radius: 10px;
   margin-bottom: 20px;
-  background-color: #f9f9f9;
+  background-color: #f0f7ff;
 }
 
 .job-item h3 {
   margin: 0 0 10px;
-  color: #2c3e50;
+  color: #0d47a1;
 }
 
 .job-item p {
   margin: 6px 0;
-  color: #555;
+  color: #1565c0;
 }
 
 .job-item input[type="text"],
 .job-item textarea {
   margin-bottom: 10px;
+  background-color: #e3f2fd;
+  border: 1px solid #64b5f6;
+  color: #0d47a1;
 }
 
 @media (max-width: 768px) {

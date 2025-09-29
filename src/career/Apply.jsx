@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import './Apply.css'; 
+import './Apply.css';
+import { useLocation } from 'react-router-dom';
 
 const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:5000';
 
 const Apply = () => {
+    const location = useLocation();
+  const preselectedJob = location.state?.job || null;  // 👈 job from Career page
+
+
   const [jobs, setJobs] = useState([]);
-  const [selectedJob, setSelectedJob] = useState(null);
+ const [selectedJob, setSelectedJob] = useState(preselectedJob);
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -42,69 +48,75 @@ const Apply = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleFileChange = (e) => {
-    setFormData((prev) => ({ ...prev, resume: e.target.files[0] }));
-  };
+const handleFileChange = (e) => {
+  const file = e.target.files[0];
+  if (!file.name.endsWith('.docx')) {
+    alert('Only .docx files are accepted!');
+    e.target.value = null; // clear file input
+    return;
+  }
+  setFormData((prev) => ({ ...prev, resume: file }));
+};
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!selectedJob) return alert('Please select a job');
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (!selectedJob) return alert('Please select a job');
 
-    const payload = new FormData();
-    payload.append('firstName', formData.firstName);
-    payload.append('lastName', formData.lastName);
-    payload.append('mobile', formData.mobile);
-    payload.append('email', formData.email);
-    payload.append('message', formData.message);
-    payload.append('resume', formData.resume);
-    payload.append('jobTitle', selectedJob.title);
+  const payload = new FormData();
+  payload.append('firstName', formData.firstName);
+  payload.append('lastName', formData.lastName);
+  payload.append('mobile', formData.mobile);
+  payload.append('email', formData.email);
+  payload.append('message', formData.message);
+  payload.append('resume', formData.resume);
+  payload.append('jobTitle', selectedJob.title);
 
-    try {
-      const response = await fetch(`${API_BASE}/send-application`, {
-        method: 'POST',
-        body: payload,
-      });
+  try {
+    const response = await fetch(`${API_BASE}/send-application`, {
+      method: 'POST',
+      body: payload,
+    });
 
-      if (response.ok) {
-        setSubmitted(true);
-        setFormData({
-          firstName: '',
-          lastName: '',
-          mobile: '',
-          email: '',
-          message: '',
-          resume: null,
-        });
-        setSelectedJob(null);
-      } else {
-        alert('Failed to submit application.');
-      }
-    } catch (error) {
-      console.error('Application error:', error);
-      alert('Server error. Try again later.');
-    }
-  };
+  const result = await response.json();
+
+if (response.ok) {
+  alert(result.message);
+   window.location.reload();  // refresh immediately
+  // ✅ success only
+} else {
+  alert(result.message || '❌ Failed to submit application.');
+
+ window.location.reload();  // refresh immediately
+}
+
+  } catch (error) {
+    console.error('Application error:', error);
+    alert('Server error. Try again later.');
+  }
+};
+
+
 
   return (
     <div className="apply-container">
       <h1>Apply for a Job</h1>
 
       <div className="job-selection">
-        <label>Select a Job:</label>
-        <select
-          value={selectedJob?.id || ''}
-          onChange={(e) => {
-            const job = jobs.find((j) => j.id === e.target.value);
-            setSelectedJob(job || null);
-          }}
-        >
-          <option value="">-- Select Job --</option>
-          {jobs.map((job) => (
-            <option key={job.id} value={job.id}>
-              {job.title}
-            </option>
-          ))}
-        </select>
+      <select
+  value={selectedJob?.id || ''}
+  onChange={(e) => {
+    const job = jobs.find((j) => j.id === e.target.value);
+    setSelectedJob(job || null);
+  }}
+>
+  <option value="">-- Select Job --</option>
+  {jobs.map((job) => (
+    <option key={job.id} value={job.id}>
+      {job.title}
+    </option>
+  ))}
+</select>
+
       </div>
 
       {selectedJob && (
@@ -113,6 +125,7 @@ const Apply = () => {
           <p><strong>Skill:</strong> {selectedJob.skill}</p>
           <p><strong>Qualification:</strong> {selectedJob.qualification}</p>
           <p><strong>Description:</strong> {selectedJob.description}</p>
+        <small>📝 Your resume will be automatically checked for required skills and qualifications</small>
         </div>
       )}
 
@@ -122,6 +135,7 @@ const Apply = () => {
         <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleInputChange} required />
         <input type="tel" name="mobile" placeholder="Mobile" value={formData.mobile} onChange={handleInputChange} required />
         <textarea name="message" placeholder="Why should we hire you?" value={formData.message} onChange={handleInputChange} required />
+        Only .docx files are accepted!
         <input type="file" name="resume" accept=".pdf,.doc,.docx" onChange={handleFileChange} required />
         <button type="submit">Submit Application</button>
       </form>
@@ -131,7 +145,13 @@ const Apply = () => {
           <div className="popup-content">
             <h2>Thank you for applying!</h2>
             <p>Your application has been sent. We'll get back to you soon.</p>
-            <button onClick={() => setSubmitted(false)}>Close</button>
+           <button onClick={() => {
+  setSubmitted(false);
+  window.location.reload(); // 🔄 refresh page after close
+}}>
+  Close
+</button>
+
           </div>
         </div>
       )}
@@ -140,3 +160,4 @@ const Apply = () => {
 };
 
 export default Apply;
+

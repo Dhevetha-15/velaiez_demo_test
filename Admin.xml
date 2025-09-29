@@ -2,18 +2,18 @@
 <jobs>
   <job>
     <id>1</id>
-    <title>tt</title>
-    <skill>tt</skill>
-    <qualification>tt</qualification>
-    <description>tt</description>
+    <title>software</title>
+    <skill>Css,js</skill>
+    <qualification>B.tech</qualification>
+    <description>test</description>
     <status>Open</status>
   </job>
   <job>
     <id>2</id>
-    <title>hh</title>
-    <skill>ff</skill>
-    <qualification>ff</qualification>
-    <description>ff</description>
+    <title>it</title>
+    <skill>reactjs,project management</skill>
+    <qualification>btect</qualification>
+    <description>sd</description>
     <status>Open</status>
   </job>
 </jobs>

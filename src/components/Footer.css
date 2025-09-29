@@ -16,7 +16,7 @@
 }
 
 .footer .footer-link {
-  color: #e07509;
+  color: #0991e0;
   text-decoration: none;
   transition: color 0.3s ease;
   text-decoration: underline;
@@ -24,7 +24,7 @@
 }
 
 .footer .footer-link:hover {
-  color: #f6c166;
+  color: #66b0f6;
   text-decoration: underline;
 }
 
@@ -47,7 +47,7 @@
 }
 
 .social-icons a {
-  color: rgb(251, 110, 54);
+  color: rgb(0, 195, 255);
   font-size: 30px; /* Increased icon size */
   transition: transform 0.3s ease;
 }

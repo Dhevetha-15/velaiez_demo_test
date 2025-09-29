@@ -3,6 +3,7 @@
   margin-top: 80px;
 }
 
+/* 🏢 Hero Section */
 .career-hero {
   background-size: cover;
   background-position: center;
@@ -11,7 +12,7 @@
 }
 
 .career-overlay {
-  background-color: rgba(0, 0, 0, 0.5); /* dark overlay */
+  background-color: rgba(3, 19, 42, 0.6); /* dark blue overlay */
   height: 90%;
   display: flex;
   flex-direction: column;
@@ -22,24 +23,23 @@
   text-align: center;
 }
 
-
 .career-overlay h1 {
   font-size: 48px;
   font-weight: bold;
-  color: #fefefd;
-    margin-top: 0px; /* remove default margins for perfect centering */
-margin-bottom: 10px;
+  color: #ffffff;
+  margin-top: 0px;
+  margin-bottom: 10px;
 }
 
-.p1{
-    text-align: center;
-    font-size: 23px;
-    color: #fd700b;
-    font-weight: 700;
-    margin-top: 10px;
+.p1 {
+  text-align: center;
+  font-size: 23px;
+  color: #9ee9fc; /* bright blue */
+  font-weight: 700;
+  margin-top: 10px;
 }
 
-
+/* Header Text */
 .career-header p {
   position: relative;
   font-size: 18px;
@@ -47,6 +47,7 @@ margin-bottom: 10px;
   z-index: 1;
 }
 
+/* No Jobs Message */
 .no-jobs {
   text-align: center;
   color: #666;
@@ -54,6 +55,7 @@ margin-bottom: 10px;
   margin-top: 40px;
 }
 
+/* Career List */
 .career-list {
   max-width: 1500px;
   width: 100%;
@@ -63,9 +65,10 @@ margin-bottom: 10px;
   gap: 15px;
 }
 
+/* Section Titles */
 .velai p {
   font-size: 1.1rem;
-  color: #f8600e;
+  color: #03a9f4; /* blue accent */
   margin-bottom: -15px;
   margin-top: -25px;
   margin-left: 10px;
@@ -80,58 +83,118 @@ margin-bottom: 10px;
 
 .velai h2 {
   font-size: 1.5rem;
-  color: #f8600e;
+  color: #0589d5; /* darker blue */
   margin-top: 5px;
   margin-left: 8px;
   margin-bottom: 5px;
 }
 
+/* Career Cards */
 .career-card {
-  background: #fff;
-  border: 1px solid #e0e0e0;
+  background: #e3f2fd; /* pale blue background */
+  border: 1px solid #90caf9; /* light blue border */
   padding: 25px 30px;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-  transition: transform 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 50, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .career-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 50, 0.15);
 }
 
 .career-card p {
   margin: 10px 0;
   font-size: 16px;
-  color: #333;
+  color: #0d47a1; /* deep blue text */
 }
 
 .career-card strong {
-  color: #000;
+  color: #01579b; /* darker blue for emphasis */
 }
+
 .career-card p.description,
 .career-card p.qualification {
   white-space: pre-wrap;
 }
 
-.career-card p.description{
+.career-card p.description {
   margin-left: -10px;
 }
 
+/* Apply Button */
 .apply-btn {
   margin-top: 15px;
   padding: 12px 20px;
-  background: linear-gradient(to right, #f84909, #f98055); /* Ash to light orange */
+  background: linear-gradient(to right, #0288d1, #03a9f4); /* blue gradient */
   color: white;
   font-weight: bold;
   font-size: 15px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease, background 0.3s ease, color 0.3s ease;
 }
 
 .apply-btn:hover {
-  background: linear-gradient(to right, #f8a857, #ffe0b2); /* Ash to light orange */
+  background: linear-gradient(to right, #81d4fa, #b3e5fc); /* lighter blue gradient */
   opacity: 0.9;
   color: #000;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .career-overlay h1 { font-size: 28px; }
+  .p1 { font-size: 18px; }
+  .velai h1 { font-size: 1.5rem; }
+  .velai h2 { font-size: 1.2rem; }
+  .career-card { padding: 20px; }
+  .apply-btn { width: 100%; font-size: 14px; }
+}
+/* ✨ Keyframe Animations */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes zoomIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* 🏢 Hero Section Animations */
+.career-overlay h1 {
+  animation: fadeInDown 1.2s ease forwards;
+}
+
+.p1 {
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
+  animation-delay: 0.4s;
+}
+
+/* 📝 Career Cards Animations */
+.career-card {
+  opacity: 0;
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+.career-card:nth-child(1) { animation-delay: 0.2s; }
+.career-card:nth-child(2) { animation-delay: 0.4s; }
+.career-card:nth-child(3) { animation-delay: 0.6s; }
+.career-card:nth-child(4) { animation-delay: 0.8s; }
+.career-card:nth-child(5) { animation-delay: 1s; }
+.career-card:nth-child(6) { animation-delay: 1.2s; }
+
+/* 🔵 Apply Button Animation */
+.apply-btn {
+  opacity: 0;
+  animation: zoomIn 0.8s ease forwards;
+  animation-delay: 1.4s; /* appears after cards */
 }

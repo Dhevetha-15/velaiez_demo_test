@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./ContactUs.css";
 import whatsappIcon from "../assets/WhatsApp_icon.png";
 
@@ -13,8 +12,6 @@ const ContactUs = () => {
     phone: "",
     enquiry: "",
   });
-  const [submitted, setSubmitted] = useState(false);
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -34,7 +31,11 @@ const ContactUs = () => {
 
       if (response.ok) {
         console.log("Contact enquiry sent successfully");
-        setSubmitted(true);
+        
+        // Show window notification instead of popup
+        window.alert("Thank you for reaching out!\nOur team will review your inquiry and get back to you soon.");
+        
+        // Reset form
         setFormData({ name: "", email: "", phone: "", enquiry: "" });
       } else {
         alert("Failed to send contact enquiry.");
@@ -43,11 +44,6 @@ const ContactUs = () => {
       console.error("Error sending contact enquiry:", error);
       alert("Server error. Please try again later.");
     }
-  };
-
-  const handleClose = () => {
-    setSubmitted(false);
-    navigate("/contact");
   };
 
   return (
@@ -115,23 +111,10 @@ const ContactUs = () => {
               onChange={handleChange}
               required
             />
-            <button type="submit">Submit</button>
+            <button  type="submit">Submit</button>
           </form>
         </div>
       </div>
-
-      {/* ✅ Thank You Popup */}
-      {submitted && (
-        <div className="popup-overlay">
-          <div className="popup-content">
-            <h2>Thank you for reaching out!</h2>
-            <p>Our team will review your inquiry and get back to you soon.</p>
-            <button className="popup-close-button" onClick={handleClose}>
-              Close
-            </button>
-          </div>
-        </div>
-      )}
 
       {/* ✅ WhatsApp Button */}
       <a

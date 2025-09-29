@@ -18,7 +18,7 @@
 
 .login-card h2 {
   margin-bottom: 20px;
-  color: #c84123;
+  color: #0877de;
   font-size: 24px;
 }
 
@@ -43,7 +43,7 @@
 .login-card button {
   width: 100%;
   padding: 12px;
-  background-color: #c84123;
+  background-color: #00a2ff;
   color: #fff;
   font-size: 15px;
   border: none;
@@ -54,7 +54,7 @@
 }
 
 .login-card button:hover {
-  background-color: #a82f17;
+  background-color: #63dbff;
 }
 
 .error-message {
