@@ -44,8 +44,8 @@ const Consultancy = () => {
     </Link>
   </div>
   <div className="service-box">
-    <Link to="/legal">
-      <h4>Legal Consultancy</h4>
+    <Link to="/retainer-services">
+      <h4>retainer-services</h4>
     </Link>
   </div>
   <div className="service-box">
