@@ -155,6 +155,7 @@ const extractTextFromFile = async (filePath, mimetype) => {
   }
   let extracted = "";
   if (mimetype === "application/pdf") {
+    // eslint-disable-next-line no-undef
     const data = await pdfParse(fs.readFileSync(filePath));
     extracted = data.text || "";
   } else if (
