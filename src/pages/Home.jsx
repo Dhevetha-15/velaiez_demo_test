@@ -75,8 +75,8 @@ useEffect(() => {
       <button className="gradient-btn">Executive Search</button>
     </Link>
 
-    <Link to="/legal">
-      <button className="gradient-btn">Legal Consultancy</button>
+   <Link to="/retainer-services">
+      <button className="gradient-btn">RetainerServices</button>
     </Link>
 
     <Link to="/accounting">
