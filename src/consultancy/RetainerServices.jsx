@@ -1,10 +1,9 @@
 import React from 'react';
 import './RetainerServices.css';
-import legalImg from '../assets/legal.jpeg'; // Replace with your actual image path
+import legalImg from '../assets/rs1.png'; // Replace with your actual image path
 import legalBg from '../assets/legal-bg.jpg'; // Replace with background image path
 
 const RetainerServices = () => {
-
   return (
     <div className="legal-page">
       <div
@@ -22,12 +21,31 @@ const RetainerServices = () => {
           <h2>Retainer Services</h2>
           <div className="legal-description">
             <h3>We offer expert retainer services in areas such as:</h3>
+            
             <ul>
-              <li><strong>Corporate Law:</strong> Legal structuring and documentation for businesses</li>
-              <li><strong>Compliance:</strong> Statutory and regulatory compliance services</li>
-              <li><strong>Labor Law:</strong> Employee contracts, termination policy review</li>
-              <li><strong>Legal Documentation:</strong> Drafting MOUs, agreements, and notices</li>
+              <li>
+                <strong>Retainer – Recruitment:</strong> A dedicated consultant will work exclusively with your team to identify and onboard the most suitable candidates. Our focused approach ensures reduced time-to-hire and optimized resource utilization.
+              </li>
+              <li>
+                <strong>Retainer – HR:</strong> Our HR professionals collaborate closely with your internal HR and policy teams to support:
+                <ul>
+                  <li>Strategic policy development</li>
+                  <li>Training needs assessment</li>
+                  <li>Soft skills training programs</li>
+                </ul>
+              </li>
+              <li>
+                <strong>Retainer – Payroll:</strong> We manage end-to-end payroll operations, including:
+                <ul>
+                  <li>Employee time tracking</li>
+                  <li>Salary computation</li>
+                  <li>Incentive and bonus processing</li>
+                  <li>Statutory payouts</li>
+                  <li>Claims management</li>
+                </ul>
+              </li>
             </ul>
+            
           </div>
         </div>
 
