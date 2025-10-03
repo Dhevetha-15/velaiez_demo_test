@@ -11,7 +11,7 @@ import dotenv from 'dotenv';
 import process from 'process';
 
 
-import pdfParse from "pdf-parse";
+//import pdfParse from "pdf-parse";
 import mammoth from "mammoth";
 
 

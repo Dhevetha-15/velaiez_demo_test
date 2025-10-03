@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "start": "node Server.js"
+    
   },
   "dependencies": {
     "cors": "^2.8.5",
